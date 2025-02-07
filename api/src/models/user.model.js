@@ -1,5 +1,4 @@
 const userModel = (sequelize, DataTypes) => {
-  // defino el modelo
   const User = sequelize.define(
     "user",
     {
@@ -20,6 +19,23 @@ const userModel = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      phone: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false,
+      },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "user",
       },
     },
     {
