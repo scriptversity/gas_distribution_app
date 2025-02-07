@@ -2,17 +2,17 @@ import express from "express";
 import morgan from "morgan";
 import routes from "./routes/index.js";
 
-import "./database/db.js";
+// import "./database/db.js";
 
 const server = express();
 
-server.name = "API";
+// server.name = "API";
 
 // Middleware to parse JSON data (with a 50MB limit)
-app.use(express.json({ limit: "50mb" }));
+server.use(express.json({ limit: "50mb" }));
 
 // Middleware to parse URL-encoded data (with a 50MB limit)
-app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+server.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 server.use(morgan("dev"));
 server.use((req, res, next) => {
@@ -37,4 +37,4 @@ server.use((err, req, res, next) => {
   res.status(status).send(message);
 });
 
-module.exports = server;
+export default server;

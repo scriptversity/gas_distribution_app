@@ -1,6 +1,6 @@
 const userModel = (sequelize, DataTypes) => {
   // defino el modelo
-  sequelize.define(
+  const User = sequelize.define(
     "user",
     {
       name: {
@@ -26,6 +26,8 @@ const userModel = (sequelize, DataTypes) => {
       timestamps: false,
     }
   );
+
+  return User;
 };
 
 export default userModel;
