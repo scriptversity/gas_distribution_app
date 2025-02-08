@@ -88,8 +88,8 @@ User.hasOne(Business, { foreignKey: "userId" });
 Business.belongsTo(User, { foreignKey: "userId" });
 
 // // 1-to-1 Relationship between Business and Phone
-// Business.hasMany(Phone, { foreignKey: "businessId" });
-// Phone.belongsTo(Business, { foreignKey: "businessId" });
+Business.hasMany(Phone, { foreignKey: "businessId" });
+Phone.belongsTo(Business, { foreignKey: "businessId" });
 
 // define phone associations
 
