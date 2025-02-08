@@ -26,6 +26,11 @@ const delivererModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      status: {
+        // 0: Disponible, 1: Ocupado or active, inactive, on delivery
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       timestamps: false,
