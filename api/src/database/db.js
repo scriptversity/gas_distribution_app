@@ -54,7 +54,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { User, Phone, Business, Review, Cylinder, Product } = sequelize.models;
+const { User, Phone, Business, Review, Cylinder, Product, Deliverer } =
+  sequelize.models;
 
 // Many-to-Many Relationship between User and Business through Review
 User.hasMany(Review, { foreignKey: "userId" });
@@ -78,6 +79,10 @@ Product.belongsTo(Cylinder, { foreignKey: "cylinderId" });
 // many-to-many relationship between Business and Product through an intermediate table
 Business.belongsToMany(Product, { through: "business_product" });
 Product.belongsToMany(Business, { through: "business_product" });
+
+// 1-to-1 Relationship between Business and Deliverer
+Business.hasMany(Deliverer, { foreignKey: "businessId" });
+Deliverer.belongsTo(Business, { foreignKey: "businessId" });
 
 const conn = sequelize;
 export { User, Phone, Business, conn };
