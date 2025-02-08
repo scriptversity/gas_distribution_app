@@ -6,14 +6,14 @@ const orderModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       price: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+      // quantity: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      // },
     },
     {
       timestamps: false,
