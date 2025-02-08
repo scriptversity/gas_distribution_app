@@ -18,10 +18,6 @@ const delivererModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      phone: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-      },
       image: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -31,6 +27,10 @@ const delivererModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      // phone: {
+      //   type: DataTypes.ARRAY(DataTypes.STRING),
+      //   allowNull: false,
+      // },
     },
     {
       timestamps: false,
