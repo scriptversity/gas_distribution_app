@@ -158,11 +158,12 @@ Token.belongsTo(User, { foreignKey: "userId" });
 
 // 1-to-1 Relationship between User and Cart
 User.hasOne(Cart, { foreignKey: "userId" });
+// this line makes sure a user can have only one cart, and if I removed it, it would allow a user to have multiple carts
 Cart.belongsTo(User, { foreignKey: "userId" });
 
 // Many-to-Many Relationship between Cart and Product
-Cart.belongsToMany(Product, { through: "cart_product" });
-Product.belongsToMany(Cart, { through: "cart_product" });
+Cart.belongsToMany(Product, { through: "cart_product", timestamps: false });
+Product.belongsToMany(Cart, { through: "cart_product", timestamps: false });
 
 const conn = sequelize;
 
