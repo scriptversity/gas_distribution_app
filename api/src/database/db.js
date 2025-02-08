@@ -78,9 +78,32 @@ Review.belongsTo(Business, { foreignKey: "businessId" });
 User.hasOne(Business, { foreignKey: "userId" });
 Business.belongsTo(User, { foreignKey: "userId" });
 
-// 1-to-1 Relationship between Business and Phone
-Business.hasMany(Phone, { foreignKey: "businessId" });
-Phone.belongsTo(Business, { foreignKey: "businessId" });
+// // 1-to-1 Relationship between Business and Phone
+// Business.hasMany(Phone, { foreignKey: "businessId" });
+// Phone.belongsTo(Business, { foreignKey: "businessId" });
+
+// define phone associations
+
+User.hasMany(Phone, {
+  foreignKey: "ownerId",
+  constraints: false,
+  scope: { ownerType: "user" },
+});
+Phone.belongsTo(User, { foreignKey: "ownerId", constraints: false });
+
+Business.hasMany(Phone, {
+  foreignKey: "ownerId",
+  constraints: false,
+  scope: { ownerType: "business" },
+});
+Phone.belongsTo(Business, { foreignKey: "ownerId", constraints: false });
+
+Deliverer.hasMany(Phone, {
+  foreignKey: "ownerId",
+  constraints: false,
+  scope: { ownerType: "deliverer" },
+});
+Phone.belongsTo(Deliverer, { foreignKey: "ownerId", constraints: false });
 
 // 1-to-1 Relationship between Product and Cylinder
 Cylinder.hasMany(Product, { foreignKey: "cylinderId" });
