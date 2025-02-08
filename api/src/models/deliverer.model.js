@@ -23,9 +23,9 @@ const delivererModel = (sequelize, DataTypes) => {
         allowNull: true,
       },
       status: {
-        // 0: Disponible, 1: Ocupado or active, inactive, on delivery
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM("available", "busy", "inactive", "on delivery"),
         allowNull: false,
+        defaultValue: "available",
       },
       // phone: {
       //   type: DataTypes.ARRAY(DataTypes.STRING),
