@@ -3,8 +3,15 @@ const orderModel = (sequelize, DataTypes) => {
     "order",
     {
       status: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(
+          "pending",
+          "confirmed",
+          "shipped",
+          "delivered",
+          "cancelled"
+        ),
         allowNull: false,
+        defaultValue: "pending",
       },
       price: {
         type: DataTypes.FLOAT,
