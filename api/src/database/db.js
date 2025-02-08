@@ -33,14 +33,23 @@ const modelFiles = fs
       file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
   );
 
-for (const file of modelFiles) {
-  // const model = await import(path.join(__dirname, "../models", file));
-  const model = await import(
-    `file://${path.join(__dirname, "../models", file)}`
-  );
+// for (const file of modelFiles) {
+//   const model = await import(
+//     `file://${path.join(__dirname, "../models", file)}`
+//   );
 
-  modelDefiners.push(model.default); // Use .default because import() returns a module object
-}
+//   modelDefiners.push(model.default); // Use .default because import() returns a module object
+// }
+
+// A better way of doing the previous code(for...of)
+await Promise.all(
+  modelFiles.map(async (file) => {
+    const model = await import(
+      `file://${path.join(__dirname, "../models", file)}`
+    );
+    modelDefiners.push(model.default);
+  })
+);
 
 // Injectamos la conexion (sequelize) a todos los modelos
 modelDefiners.forEach((model) => model(sequelize, Sequelize.DataTypes));
@@ -110,8 +119,14 @@ Cylinder.hasMany(Product, { foreignKey: "cylinderId" });
 Product.belongsTo(Cylinder, { foreignKey: "cylinderId" });
 
 // many-to-many relationship between Business and Product through an intermediate table
-Business.belongsToMany(Product, { through: "business_product" });
-Product.belongsToMany(Business, { through: "business_product" });
+Business.belongsToMany(Product, {
+  through: "business_product",
+  timestamps: false,
+});
+Product.belongsToMany(Business, {
+  through: "business_product",
+  timestamps: false,
+});
 
 // 1-to-1 Relationship between Business and Deliverer
 Business.hasMany(Deliverer, { foreignKey: "businessId" });
@@ -129,9 +144,13 @@ Order.belongsTo(Product, { foreignKey: "productId" });
 Deliverer.hasMany(Order, { foreignKey: "delivererId" });
 Order.belongsTo(Deliverer, { foreignKey: "delivererId" });
 
-// 1-to-1 Relationship between Business and Order
-Business.hasMany(Order, { foreignKey: "businessId" });
-Order.belongsTo(Business, { foreignKey: "businessId" });
+// // 1-to-1 Relationship between Business and Order
+// Business.hasMany(Order, { foreignKey: "businessId" });
+// Order.belongsTo(Business, { foreignKey: "businessId" });
+
+// Many-to-Many Relationship between Order and Product through OrderDetails
+Order.belongsToMany(Product, { through: "order_details" });
+Product.belongsToMany(Order, { through: "order_details" });
 
 // 1-to-1 Relationship between User and Token
 User.hasMany(Token, { foreignKey: "userId" });
