@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { loginHandler, authHandler } from "../handlers/auth/loginHandler.js";
+import { loginHandler } from "../handlers/auth/loginHandler.js";
+import { authHandler } from "../handlers/auth/authHandler.js";
 const router = Router();
 
 import auth from "../middlewares/auth.js";

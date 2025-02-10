@@ -167,4 +167,16 @@ Product.belongsToMany(Cart, { through: "cart_product", timestamps: false });
 
 const conn = sequelize;
 
-export { User, Phone, Business, conn };
+export {
+  User,
+  Phone,
+  Business,
+  Review,
+  Cylinder,
+  Product,
+  Deliverer,
+  Order,
+  Token,
+  Cart,
+  conn,
+};

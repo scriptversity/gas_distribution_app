@@ -5,7 +5,7 @@ import { conn } from "./src/database/db.js";
 const port = process.env.PORT || 3001;
 
 conn
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => console.log("Database synced successfully"))
   .then(() => {
     server.listen(port, () => {
