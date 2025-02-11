@@ -12,7 +12,7 @@ export const signupHandler = async (req, res) => {
     if (!name || !email || !password || !address) {
       return res
         .status(400)
-        .json({ success: false, msg: "Missing required fields" });
+        .json({ success: false, error: "Missing required fields" });
     }
 
     // 2️⃣ Check if email is already registered
@@ -20,7 +20,7 @@ export const signupHandler = async (req, res) => {
     if (existingUser) {
       return res
         .status(409)
-        .json({ success: false, msg: "Email already in use" });
+        .json({ success: false, error: "Email already in use" });
     }
 
     // 3️⃣ Hash the password
@@ -60,7 +60,7 @@ export const signupHandler = async (req, res) => {
       console.error("Error storing refresh token:", tokenError);
       return res
         .status(500)
-        .json({ success: false, msg: "Error storing refresh token" });
+        .json({ success: false, error: "Error storing refresh token" });
     }
 
     // 7️⃣ Send response (excluding password)
@@ -78,8 +78,8 @@ export const signupHandler = async (req, res) => {
       accessToken,
       refreshToken,
     });
-  } catch (error) {
-    console.error("Error during signup:", error);
-    res.status(500).json({ success: false, msg: "Internal server error" });
+  } catch (err) {
+    console.error("Error during signup:", err);
+    res.status(500).json({ success: false, error: "Internal server error" });
   }
 };

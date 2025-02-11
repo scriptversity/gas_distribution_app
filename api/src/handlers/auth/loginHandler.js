@@ -10,7 +10,7 @@ export const loginHandler = async (req, res) => {
     if (!email || !password) {
       return res
         .status(400)
-        .json({ success: false, msg: "Missing required fields" });
+        .json({ success: false, error: "Missing required fields" });
     }
 
     let user = await User.findOne({ where: { email } });
@@ -18,14 +18,14 @@ export const loginHandler = async (req, res) => {
     if (!user) {
       return res
         .status(404)
-        .json({ success: false, msg: "Invalid email or password" });
+        .json({ success: false, error: "Invalid email or password" });
     }
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res
         .status(401)
-        .json({ success: false, msg: "Invalid email or password" });
+        .json({ success: false, error: "Invalid email or password" });
     }
 
     // Generate tokens
@@ -53,7 +53,7 @@ export const loginHandler = async (req, res) => {
       console.error("Error storing refresh token:", tokenError);
       return res
         .status(500)
-        .json({ success: false, msg: "Token storage failed" });
+        .json({ success: false, error: "Token storage failed" });
     }
 
     res.status(200).json({
@@ -62,8 +62,8 @@ export const loginHandler = async (req, res) => {
       accessToken,
       refreshToken,
     });
-  } catch (error) {
-    console.error("Error during login:", error);
-    res.status(500).json({ success: false, msg: "Internal server error" });
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).json({ success: false, error: "Internal server error" });
   }
 };

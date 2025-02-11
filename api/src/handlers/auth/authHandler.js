@@ -4,9 +4,10 @@ import { getUserById } from "../../controllers/auth/authController.js";
 export const authHandler = async (req, res) => {
   try {
     // Validate if user ID is provided
-    console.log(req.user);
     if (!req.user || !req.user.id) {
-      return res.status(400).json({ error: "User ID is required" });
+      return res
+        .status(400)
+        .json({ success: false, error: "User ID is required" });
     }
 
     // Call the controller to get user data
@@ -14,15 +15,15 @@ export const authHandler = async (req, res) => {
 
     // Return the appropriate response
     if (error) {
-      return res.status(statusCode).json({ error });
+      return res.status(statusCode).json({ success: false, error });
     }
 
-    res.status(statusCode).json(user);
+    res.status(statusCode).json({ success: true, msg: "Authenticated", user });
   } catch (err) {
     // Log the error for debugging purposes
     console.error("Unexpected error in authHandler:", err.message);
 
     // Return a generic server error message
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 };

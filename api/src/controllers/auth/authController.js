@@ -23,6 +23,6 @@ export const getUserById = async (userId) => {
     console.error("Error retrieving user:", err.message);
 
     // Return an error message and status code
-    return { error: "Server Error", statusCode: 500 };
+    return { error: " Internal Server Error" };
   }
 };
