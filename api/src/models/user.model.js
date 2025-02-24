@@ -33,6 +33,11 @@ const userModel = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: "user",
       },
+      isDeleted: { // Soft delete field
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
     },
     {
       timestamps: false,
